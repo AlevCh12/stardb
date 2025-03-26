@@ -1,9 +1,5 @@
 import React from 'react'
-
 import './item-list.css'
-import Spinner from "../spinner";
-import SwapiService from "../../services/swapi-service"
-import withData from "../hoc-helpers/with-data"
 
 const ItemList = (props) =>  {
 
@@ -13,22 +9,20 @@ const ItemList = (props) =>  {
         const { id } = item
         const label = renderLabel(item)
 
+        return (
+            <li className="list-group-item"
+                key={ id }
+                onClick={ () => onItemSelected(id) }>
+                { label }
+            </li>
+        )
+    })
+
     return (
-        <li className="list-group-item"
-            key={ id }
-            onClick={ () => onItemSelected(id) }>
-            { label }
-        </li>
+        <ul className="item-list list-group">
+            { items }
+        </ul>
     )
-})
-
-return (
-    <ul className="item-list list-group">
-        { items }
-    </ul>
-)
 }
-
-const { getAllPeople } = new SwapiService()
 
 export default ItemList
