@@ -1,23 +1,22 @@
-import React, {Component} from "react"
-import ErrorIndicator from "../error-indicator"
+import React, { Component } from "react";
+import ErrorIndicator from "../error-indicator";
 
 export default class ErrorBoundary extends Component {
-
     state = {
-        hasError: false
-    }
+        hasError: false,
+    };
 
     componentDidCatch(error, info) {
         this.setState({
-            hasError: true
-        })
+            hasError: true,
+        });
     }
 
     render() {
         if (this.state.hasError) {
-            return <ErrorIndicator/>
+            return <ErrorIndicator />;
         }
 
-        return this.props.children
+        return this.props.children;
     }
 }

@@ -1,70 +1,49 @@
-import React from 'react'
-
 import SwapiService from "../../services/swapi-service";
 import { withData } from "../hoc-helpers";
 import ItemList from "../item-list";
 import React from "react";
 
-
-const {
-    getAllPeople,
-    getAllStarships,
-    getAllPlanets
-} = new SwapiService()
+const { getAllPeople, getAllStarships, getAllPlanets } = new SwapiService();
 
 const withChildFunction = (Wrapped, fn) => {
     return (props) => {
-        return (
-            <Wrapped { ...props }>
-                { fn }
-            </Wrapped>
-        )
-    }
-}
+        return <Wrapped {...props}>{fn}</Wrapped>;
+    };
+};
 
-const renderNameAndGender = ({name, gender}) =>
-    <span>{name}, &nbsp;{gender}</span>
-const renderNameAndModel = ({ name, model }) =>
-    <span>{name}, &nbsp;model: {model}</span>
+const renderNameAndGender = ({ name, gender }) => (
+    <span>
+    {name}, &nbsp;{gender}
+  </span>
+);
 
-const renderNameAndPopulation = ({ name, population }) =>
-    <span>{name}, &nbsp;{population} {population !== 'unknown' ? 'people' : null}</span>
+const renderNameAndModel = ({ name, model }) => (
+    <span>
+    <span>
+      {name}, &nbsp;{model}
+    </span>
+  </span>
+);
 
-const PersonList = withData(withChildFunction(ItemList, renderNameAndGender), getAllPeople)
+const renderNameAndPopulation = ({ name, population }) => (
+    <span>
+    {name}, &nbsp;{population} {population !== "unknown" ? "people" : null}
+  </span>
+);
 
-const PlanetList = withData(withChildFunction(ItemList, renderNameAndPopulation), getAllPlanets)
+const PersonList = withData(
+    withChildFunction(ItemList, renderNameAndGender),
+    getAllPeople
+);
 
-const StarshipList = withData(withChildFunction(ItemList, renderNameAndModel), getAllStarships)
+const PlanetList = withData(
+    withChildFunction(ItemList, renderNameAndPopulation),
+    getAllPlanets
+);
 
-export {
-    PersonList,
-    PlanetList,
-    StarshipList
+const StarshipList = withData(
+    withChildFunction(ItemList, renderNameAndModel),
+    getAllStarships
+);
 
-const ItemList = (props) =>  {
-
-    const { data, onItemSelected, children: renderLabel } = props
-
-    const items = data.map((item) => {
-        const { id } = item
-        const label = renderLabel(item)
-
-        return (
-            <li className="list-group-item"
-                key={ id }
-                onClick={ () => onItemSelected(id) }>
-                { label }
-            </li>
-        )
-    })
-
-    return (
-        <ul className="item-list list-group">
-            { items }
-        </ul>
-    )
-}
-
-const { getAllPeople } = new SwapiService()
-
-export default ItemList
+export { PersonList, PlanetList, StarshipList };
