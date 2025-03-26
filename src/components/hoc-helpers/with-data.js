@@ -20,7 +20,9 @@ const withData = (View, getData) => {
 
             if (!data) return <Spinner />
 
-            return <View { ...this.props } data={ data } />
+            return (
+                <View { ...this.props } data={ data } />
+            )
         }
     }
 }
