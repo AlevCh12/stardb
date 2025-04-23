@@ -56,7 +56,6 @@ export default class RandomPlanet extends Component {
         const hasData = !(loading || error)
 
         const errorMessage = error ? <ErrorIndicator /> : null
-
         const spinner = loading ? <Spinner /> : null
         const content = hasData ? <PlanetView planet={planet}/> : null
 
@@ -69,6 +68,7 @@ export default class RandomPlanet extends Component {
         );
     }
 }
+
 
 const PlanetView = ({ planet }) => {
 
