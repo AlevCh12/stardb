@@ -15,4 +15,5 @@ const PeoplePage = ({ history, match }) => {
         />
     )
 }
+
 export default withRouter(PeoplePage)

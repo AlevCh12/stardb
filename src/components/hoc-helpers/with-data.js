@@ -10,6 +10,7 @@ const withData = (View) => {
             loading: true,
             error: false
         }
+
         componentDidUpdate(prevProps) {
             if (this.props.getData !== prevProps.getData) {
                 this.update()
@@ -25,6 +26,7 @@ const withData = (View) => {
                 loading: true,
                 error: false
             })
+
             this.props.getData()
                 .then((data) => { this.setState({ data, loading: false })})
                 .catch(() => this.setState({ error: true, loading: false }))
@@ -34,7 +36,6 @@ const withData = (View) => {
             const { data, error, loading } = this.state
 
             if (loading) return <Spinner />
-
 
             if (error) return <ErrorIndicator />
 

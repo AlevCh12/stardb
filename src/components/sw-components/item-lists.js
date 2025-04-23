@@ -4,7 +4,6 @@ import { withData, withSwapiService, withChildFunction, compose } from "../hoc-h
 import ItemList from "../item-list"
 
 
-
 const renderNameAndGender = ({name, gender}) =>
     <span>{name}, &nbsp;{gender}</span>
 
