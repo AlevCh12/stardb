@@ -2,30 +2,22 @@ import React, { Component } from 'react'
 
 import Spinner from '../spinner'
 import SwapiService from '../../services/swapi-service'
-import ErrorIndicator from "../error-indicator";
 
 import './random-planet.css'
 
 export default class RandomPlanet extends Component {
+
     swapiService = new SwapiService()
 
     state = {
         planet: {},
-        loading: true,
-        error: false
+        loading: true
     };
 
-
-        componentDidMount() {
+    constructor(props) {
+        super(props)
         this.updatePlanet()
-            this.interval = setInterval(this.updatePlanet, 3000)
-        }
-
-        componentWillUnmount() {
-            clearInterval(this.interval)
-
     }
-
 
     onPlanetLoaded = (planet) => {
         this.setState({
@@ -34,35 +26,20 @@ export default class RandomPlanet extends Component {
         });
     };
 
-    onError = (err) => {
-        this.setState({
-            loading: false,
-            error: true
-        });
-    }
     updatePlanet = () => {
-        let id = 20;
-        while (id === 20 ) {
-            id = Math.floor(Math.random()*19) + 3
-        }
+        const id = Math.floor(Math.random()*15) + 2;
         this.swapiService
             .getPlanet(id)
-            .then(this.onPlanetLoaded)
-            .catch((err) => this.onError())
+            .then(this.onPlanetLoaded);
     }
 
     render() {
-        const { planet, loading, error } = this.state
-
-        const hasData = !(loading || error)
-
-        const errorMessage = error ? <ErrorIndicator /> : null
+        const { planet, loading } = this.state
         const spinner = loading ? <Spinner /> : null
-        const content = hasData ? <PlanetView planet={planet}/> : null
+        const content = !loading ? <PlanetView planet={planet}/> : null
 
         return (
             <div className="random-planet jumbotron rounded">
-                {errorMessage}
                 {spinner}
                 {content}
             </div>
@@ -71,7 +48,9 @@ export default class RandomPlanet extends Component {
 }
 
 const PlanetView = ({ planet }) => {
-    const { id, name, population, rotationPeriod, diameter } = planet
+
+    const { id, name, population,
+        rotationPeriod, diameter } = planet;
 
     return (
         <React.Fragment>
@@ -95,5 +74,5 @@ const PlanetView = ({ planet }) => {
                 </ul>
             </div>
         </React.Fragment>
-    )
-}
+    );
+};
