@@ -2,15 +2,21 @@ export default class SwapiService {
 
      _apiBase = 'https://swapi.dev/api'
      _imageBase = 'https://starwars-visualguide.com/assets/img'
-     getResource = async (url) => {
-            const res = await fetch(`${this._apiBase}${url}`)
-
-            if (!res.ok) {
-                throw new Error(`Could not fetch ${url}` +
-                    `, received ${res.status}`)
-            }
-            return await res.json();
-    }
+     
+     async getResource(url, retries = 3) {
+         for (let i = 0; i < retries; i++) {
+             try {
+                 const res = await fetch(`${this._apiBase}${url}`)
+                 if (!res.ok) {
+                     throw new Error(`Could not fetch ${url}, received ${res.status}`)
+                 }
+                 return await res.json()
+             } catch (error) {
+                 if (i === retries - 1) throw error
+                 await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)))
+             }
+         }
+     }
 
       getAllPeople = async () => {
             const res = await this.getResource(`/people/`)

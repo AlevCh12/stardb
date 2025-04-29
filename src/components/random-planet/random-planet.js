@@ -12,13 +12,15 @@ export default class RandomPlanet extends Component {
     }
 
     static propTypes = {
-        updateInterval: PropTypes.number
+        updateInterval: PropTypes.number,
+        swapiService: PropTypes.object.isRequired
     }
 
     state = {
         planet: {},
         loading: true,
-        error: false
+        error: false,
+        errorMessage: ''
     };
 
     componentDidMount() {
@@ -34,14 +36,17 @@ export default class RandomPlanet extends Component {
     onPlanetLoaded = (planet) => {
         this.setState({
             planet,
-            loading: false
+            loading: false,
+            error: false,
+            errorMessage: ''
         });
     };
 
     onError = (err) => {
         this.setState({
             loading: false,
-            error: true
+            error: true,
+            errorMessage: err.message
         })
     }
 
@@ -53,18 +58,35 @@ export default class RandomPlanet extends Component {
             .catch(this.onError)
     }
 
+    handleRetry = () => {
+        this.setState({ loading: true, error: false })
+        this.updatePlanet()
+    }
+
     render() {
-        const { planet, loading, error } = this.state
+        const { planet, loading, error, errorMessage } = this.state
 
         const hasData = !(loading || error)
 
-        const errorMessage = error ? <ErrorIndicator /> : null
+        const errorContent = error ? (
+            <div className="error-message">
+                <ErrorIndicator />
+                <p>{errorMessage}</p>
+                <button 
+                    className="btn btn-primary"
+                    onClick={this.handleRetry}
+                >
+                    Try Again
+                </button>
+            </div>
+        ) : null
+
         const spinner = loading ? <Spinner/> : null
         const content = hasData ? <PlanetView planet={planet}/> : null
 
         return (
             <div className="random-planet jumbotron rounded">
-                {errorMessage}
+                {errorContent}
                 {spinner}
                 {content}
             </div>
