@@ -1,15 +1,6 @@
-import PeoplePage from "./people-page"
-import PlanetsPage from "./planets-page"
-import StarshipsPage from "./starships-page"
-import SecretPage from "./secret-page"
-import LoginPage from "./login-page"
-import WelcomePage from "./start-page"
-
-export {
-    PeoplePage,
-    PlanetsPage,
-    StarshipsPage,
-    SecretPage,
-    LoginPage,
-    WelcomePage
-}
+export {default as PeoplePage} from './people-page'
+export {default as PlanetsPage} from './planets-page'
+export {default as StarshipsPage} from './starships-page'
+export {default as LoginPage} from './login-page'
+export {default as SecretPage} from './secret-page'
+export {default as WelcomePage} from './start-page'

@@ -1,8 +1,7 @@
 import React from "react"
 
-import { withData, withSwapiService, withChildFunction, compose } from "../hoc-helpers"
+import {withData, withSwapiService, withChildFunction, compose} from "../hoc-helpers"
 import ItemList from "../item-list"
-
 
 const renderNameAndGender = ({name, gender}) =>
     <span>{name}, &nbsp;{gender}</span>
@@ -13,23 +12,23 @@ const renderNameAndModel = ({ name, model }) =>
 const renderNameAndPopulation = ({ name, population }) =>
     <span>{name}, &nbsp;{population} {population !== 'unknown' ? 'people' : null}</span>
 
-
 const mapPersonMethodsToProps = (swapiService) => {
-    return {
+    return{
         getData: swapiService.getAllPeople
     }
 }
+
 const mapPlanetMethodsToProps = (swapiService) => {
-    return {
+    return{
         getData: swapiService.getAllPlanets
     }
 }
+
 const mapStarshipMethodsToProps = (swapiService) => {
-    return {
+    return{
         getData: swapiService.getAllStarships
     }
 }
-
 
 const PersonList = compose(
     withSwapiService(mapPersonMethodsToProps),
@@ -48,7 +47,6 @@ const StarshipList = compose(
     withData,
     withChildFunction(renderNameAndModel)
 )(ItemList)
-
 
 export {
     PersonList,

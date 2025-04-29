@@ -1,22 +1,22 @@
 import React from 'react'
 
-import ItemDetails, { Record } from '../item-details'
-import { withSwapiService } from '../hoc-helpers'
+import ItemDetails, {Record} from '../item-details'
+import {withSwapiService} from '../hoc-helpers'
+import App from "../app";
 
 const PersonDetails = (props) => {
-    return (
+    return(
         <ItemDetails {...props}>
             <Record field="gender" label="Gender" />
             <Record field="eyeColor" label="Eye Color" />
             <Record field="height" label="Height" />
-            <Record field="birthYear" label="Birth Year" />
+            <Record field="birthYear" label='Birth Year' />
             <Record field="homeworld" label="Homeworld" />
         </ItemDetails>
     )
 }
-
-const mapMethodsToProps = (swapiService) => {
-    return {
+const mapMethodsToProps =(swapiService)=>{
+    return{
         getData: swapiService.getPerson,
         getImageUrl: swapiService.getPersonImage
     }

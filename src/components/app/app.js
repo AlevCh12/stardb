@@ -2,23 +2,19 @@ import React, {Component} from 'react'
 
 import Header from '../header'
 import RandomPlanet from '../random-planet'
+import ErrorBoundary from '../error-boundary'
 
 import './app.css'
-import { ErrorIndicator, NotFoundIndicator } from "../errors"
+import {ErrorIndicator, NotFoundIndicator} from "../errors"
+//import DummySwapiService from "../../services/dummy-swapi-service"
 
-import ErrorBoundary from "../error-boundary"
-// import DummySwapiService from "../../services/dummy-swapi-service"
-
-import { SwapiServiceProvider } from '../swapi-service-context'
+import {SwapiServiceProvider} from '../swapi-service-context'
 import SwapiService from "../../services/swapi-service"
-import {PeoplePage, PlanetsPage, StarshipsPage, LoginPage, SecretPage, WelcomePage} from "../pages"
+import { PeoplePage, PlanetsPage, StarshipsPage, LoginPage, SecretPage, WelcomePage } from "../pages"
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import StarshipDetails from "../sw-components/starship-details";
-
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import StarshipDetails from '../sw-components/starship-details';
 export default class App extends Component{
-
-
 
     state = {
         selectedItem: null,
@@ -34,46 +30,44 @@ export default class App extends Component{
     }
 
     componentDidCatch(error, errorInfo) {
-        this.setState({ hasError: true })
+        this.setState({ hasError: true})
     }
 
-    render() {
-
-        if (this.state.hasError) {
-            return <ErrorIndicator />
+    render(){
+        if(this.state.hasError){
+            return <ErrorIndicator/>
         }
-
-        const { isLoggedIn, swapiService } = this.state
-
-        return (
+        const {isLoggedIn, swapiService} = this.state
+        return(
             <ErrorBoundary>
                 <SwapiServiceProvider value={swapiService} >
                     <Router>
                         <div className="stardb-app">
-                            <Header/>
+                            <Header />
                             <RandomPlanet />
-
                             <Switch>
                                 <Route path="/" component={WelcomePage} exact />
 
-                                <Route path="/people/:id?" component={PeoplePage} exact/>
-
                                 <Route path="/planets/:id?" component={PlanetsPage} exact/>
-
-                                <Route path="/starships" component={StarshipsPage} exact/>
+                                <Route path="/people/:id?" component={PeoplePage} exact/>
+                                <Route path="/starships" component={StarshipsPage} exact />
                                 <Route path="/starships/:id" render={({ match }) => {
-                                    const { id } = match.params
+                                    const {id} = match.params
                                     return <StarshipDetails itemId={id} />
                                 }}/>
-                                <Route path="/login" render={() => (
-                                    <LoginPage isLoggedIn={ isLoggedIn }
-                                               onLogin={() => this.onLogin()} />
-                                )} exact />
+
+                                <Route path="/login" render={()=>(
+                                    <LoginPage isLoggedIn={isLoggedIn}
+                                                onLogin={() => this.onLogin()} />
+                                )} exact/>
+
                                 <Route path="/secret" render={() => (
                                     <SecretPage isLoggedIn={ isLoggedIn }/>
                                 )} exact />
                                 <Route component={NotFoundIndicator}/>
                             </Switch>
+
+
                         </div>
                     </Router>
                 </SwapiServiceProvider>

@@ -1,3 +1,3 @@
-import WelcomeHeader from "./welcome-header"
+import WelcomeHeader from './welcome-header'
 
 export default WelcomeHeader

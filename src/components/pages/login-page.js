@@ -1,6 +1,6 @@
 import React from "react"
 
-const LoginPage = ({ isLoggedIn, onLogin }) => {
+const LoginPage = ({isLoggedIn, onLogin}) => {
 
     const content = (isLoggedIn) => {
         if (isLoggedIn)
@@ -10,7 +10,7 @@ const LoginPage = ({ isLoggedIn, onLogin }) => {
                 </React.Fragment>
             )
 
-        return (
+        return(
             <React.Fragment>
                 <h5>Login to see secret page!!!</h5>
                 <br/>
@@ -23,7 +23,7 @@ const LoginPage = ({ isLoggedIn, onLogin }) => {
 
     return (
         <div className="jumbotron">
-            { content(isLoggedIn) }
+            {content(isLoggedIn)}
         </div>
     )
 }

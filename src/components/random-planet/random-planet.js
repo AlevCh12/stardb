@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 import Spinner from '../spinner'
 import SwapiService from '../../services/swapi-service'
-import { ErrorIndicator } from "../errors"
-
+import {ErrorIndicator} from "../errors"
 import './random-planet.css'
 
 export default class RandomPlanet extends Component {
+
     static defaultProps = {
         updateInterval: 3000
     }
@@ -25,33 +25,30 @@ export default class RandomPlanet extends Component {
     };
 
     componentDidMount() {
-        const { updateInterval } = this.props
+        const {updateInterval} = this.props
         this.updatePlanet()
         this.interval = setInterval(this.updatePlanet, updateInterval)
     }
 
-    componentWillUnmount() {
+    componentWillMouunt(){
         clearInterval(this.interval)
     }
-
     onPlanetLoaded = (planet) => {
         this.setState({
             planet,
             loading: false
         });
     };
-
     onError = (err) => {
         this.setState({
             loading: false,
             error: true
-        });
+        })
     }
-
     updatePlanet = () => {
         let id = 20
-        while (id === 20 ) {
-            id = Math.floor(Math.random()*19) + 2
+        while(id === 20){
+            id = Math.floor(Math.random() * 19) + 2
         }
         this.swapiService
             .getPlanet(id)
@@ -65,7 +62,7 @@ export default class RandomPlanet extends Component {
         const hasData = !(loading || error)
 
         const errorMessage = error ? <ErrorIndicator /> : null
-        const spinner = loading ? <Spinner /> : null
+        const spinner = loading ? <Spinner/> : null
         const content = hasData ? <PlanetView planet={planet}/> : null
 
         return (
@@ -78,12 +75,11 @@ export default class RandomPlanet extends Component {
     }
 }
 
-
 const PlanetView = ({ planet }) => {
 
-    const { id, name, population, rotationPeriod, diameter } = planet
+    const{id, name, population, rotationPeriod, diameter} = planet;
 
-    return (
+    return(
         <React.Fragment>
             <img className="planet-image"
                  src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}  alt={'Planet'}/>
@@ -105,5 +101,5 @@ const PlanetView = ({ planet }) => {
                 </ul>
             </div>
         </React.Fragment>
-    )
-}
+    );
+};

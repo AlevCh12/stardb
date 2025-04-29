@@ -1,3 +1,3 @@
-import StarshipIntro from "./starship-intro"
+import StarshipIntro from './starship-intro'
 
 export default StarshipIntro

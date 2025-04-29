@@ -1,9 +1,9 @@
-import React from "react"
+import React from 'react'
 
-import WelcomeHeader from "../welcome-header"
+import WelcomeHeader from '../welcome-header'
 
 const WelcomePage = () => {
-    return (
+    return(
         <div className="jumbotron">
             <WelcomeHeader />
         </div>
