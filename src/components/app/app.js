@@ -44,7 +44,7 @@ export default class App extends Component{
                     <Router>
                         <div className="stardb-app">
                             <Header />
-                            <RandomPlanet />
+                            <RandomPlanet swapiService={swapiService} />
                             <Switch>
                                 <Route path="/" component={WelcomePage} exact />
 
